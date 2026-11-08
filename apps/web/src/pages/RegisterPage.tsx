@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, ShieldCheck, ArrowRight, AlertCircle, ArrowLeft } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const { register, loginWithGoogle } = useAuth();
+  const { register, loginWithGoogle, isAuthenticated } = useAuth();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,6 +14,12 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +47,7 @@ export default function RegisterPage() {
       const res = register(username, email, password);
       setIsLoading(false);
       if (res.success) {
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setError(res.error || "Pendaftaran gagal. Silakan coba lagi.");
       }
@@ -53,7 +59,7 @@ export default function RegisterPage() {
     setTimeout(() => {
       loginWithGoogle();
       setIsLoading(false);
-      navigate("/");
+      navigate("/dashboard");
     }, 400);
   };
 

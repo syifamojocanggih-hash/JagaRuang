@@ -106,6 +106,7 @@ export default function Layout() {
 
   const handleLogout = () => {
     logout();
+    navigate("/", { replace: true });
   };
 
   const handleSearchFocus = () => {
@@ -165,35 +166,18 @@ export default function Layout() {
             </nav>
 
             <div className="flex items-center gap-2.5 sm:gap-3">
-              {isAuthenticated ? (
-                <div className="flex items-center gap-2.5 sm:gap-3">
-                  <span className="hidden sm:inline text-xs font-semibold text-[#526D82]">
-                    Halo, <strong className="text-[#27374D]">{user?.name || "Kawan"}</strong>
-                  </span>
-                  <NavLink
-                    to="/dashboard"
-                    className="inline-flex min-h-[40px] items-center justify-center gap-2 rounded-full bg-[#526D82] px-5 py-2 text-xs font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-sm"
-                  >
-                    <span>Buka Dashboard</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </NavLink>
-                </div>
-              ) : (
-                <>
-                  <NavLink
-                    to="/login"
-                    className="inline-flex min-h-[40px] items-center justify-center px-4 py-2 text-xs font-bold text-[#27374D] hover:text-[#526D82] transition-colors cursor-pointer"
-                  >
-                    <span>Login</span>
-                  </NavLink>
-                  <NavLink
-                    to="/register"
-                    className="inline-flex min-h-[40px] items-center justify-center rounded-full bg-[#526D82] px-5 py-2 text-xs font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-sm cursor-pointer"
-                  >
-                    <span>Register</span>
-                  </NavLink>
-                </>
-              )}
+              <NavLink
+                to="/login"
+                className="inline-flex min-h-[40px] items-center justify-center px-4 py-2 text-xs font-bold text-[#27374D] hover:text-[#526D82] transition-colors cursor-pointer"
+              >
+                <span>Login</span>
+              </NavLink>
+              <NavLink
+                to="/register"
+                className="inline-flex min-h-[40px] items-center justify-center rounded-full bg-[#526D82] px-5 py-2 text-xs font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-sm cursor-pointer"
+              >
+                <span>Register</span>
+              </NavLink>
             </div>
           </div>
         </header>

@@ -8,8 +8,8 @@ import {
   ChevronDown,
   Smartphone,
   FileCode,
+  Star,
 } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
 import { Disclaimer } from "../components/ui";
 import ThreeHeroCanvas from "../components/ThreeHeroCanvas";
 
@@ -80,7 +80,6 @@ const FAQ_ITEMS = [
 ];
 
 export default function Beranda() {
-  const { isAuthenticated, openLoginModal } = useAuth();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   return (
@@ -90,7 +89,7 @@ export default function Beranda() {
       {/* ================================================================= */}
       <section className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-4 sm:pt-8">
         {/* Kolom Kiri: Tipografi Hero Tebal & CTA Pill */}
-        <div className="lg:col-span-6 space-y-6 text-left">
+        <div className="lg:col-span-6 space-y-6 text-left relative z-10">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#27374D] leading-[1.12]">
             Lindungi Dirimu Dari Tipuan Digital Dengan Aman!
           </h1>
@@ -102,24 +101,13 @@ export default function Beranda() {
 
           {/* Tombol Aksi Pill */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            {isAuthenticated ? (
-              <Link
-                to="/dashboard"
-                className="inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full bg-[#526D82] px-8 py-3 text-sm font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-md"
-              >
-                <span>Buka Dashboard</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={openLoginModal}
-                className="inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full bg-[#526D82] px-8 py-3 text-sm font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-md cursor-pointer"
-              >
-                <span>Mulai Sekarang</span>
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            )}
+            <Link
+              to="/login"
+              className="inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full bg-[#526D82] px-8 py-3 text-sm font-bold text-white hover:bg-[#27374D] active:scale-98 transition-all shadow-md cursor-pointer"
+            >
+              <span>Mulai Sekarang</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <a
               href="#tiga-pilar"
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#9DB2BF] bg-white px-7 py-3 text-sm font-bold text-[#27374D] hover:bg-[#DDE6ED]/60 transition-all cursor-pointer shadow-xs"
@@ -132,7 +120,7 @@ export default function Beranda() {
         {/* Kolom Kanan: Three.js Interactive 3D Smartphone Canvas */}
         <div className="lg:col-span-6 relative flex items-center justify-center overflow-visible">
           {/* Background Halo Glow di belakang 3D */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#9DB2BF]/30 via-white/50 to-[#526D82]/20 blur-3xl" />
+          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#9DB2BF]/30 via-white/50 to-[#526D82]/20 blur-3xl pointer-events-none" />
 
           <div className="relative w-full max-w-xl overflow-visible">
             <ThreeHeroCanvas />
@@ -189,22 +177,12 @@ export default function Beranda() {
               </p>
             </div>
             <div className="pt-6">
-              {isAuthenticated ? (
-                <Link
-                  to="/cek"
-                  className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Periksa Sekarang
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={openLoginModal}
-                  className="w-full rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Periksa Sekarang
-                </button>
-              )}
+              <Link
+                to="/login"
+                className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
+              >
+                Periksa Sekarang
+              </Link>
             </div>
           </div>
 
@@ -220,22 +198,12 @@ export default function Beranda() {
               </p>
             </div>
             <div className="pt-6">
-              {isAuthenticated ? (
-                <Link
-                  to="/belajar?tab=simulator"
-                  className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Mulai Latihan
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={openLoginModal}
-                  className="w-full rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Mulai Latihan
-                </button>
-              )}
+              <Link
+                to="/login"
+                className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
+              >
+                Mulai Latihan
+              </Link>
             </div>
           </div>
 
@@ -251,22 +219,12 @@ export default function Beranda() {
               </p>
             </div>
             <div className="pt-6">
-              {isAuthenticated ? (
-                <Link
-                  to="/lindungi"
-                  className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Buka Panduan
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={openLoginModal}
-                  className="w-full rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
-                >
-                  Buka Panduan
-                </button>
-              )}
+              <Link
+                to="/login"
+                className="block w-full text-center rounded-full bg-[#526D82] py-2.5 text-xs font-bold text-white hover:bg-[#27374D] transition-colors"
+              >
+                Buka Panduan
+              </Link>
             </div>
           </div>
         </div>
@@ -281,24 +239,13 @@ export default function Beranda() {
             <span className="text-xs font-bold uppercase tracking-wider text-[#526D82]">Pilihan Studi Kasus</span>
             <h2 className="text-2xl sm:text-3xl font-black text-[#27374D]">Modul Simulasi Populer</h2>
           </div>
-          {isAuthenticated ? (
-            <Link
-              to="/belajar?tab=simulator"
-              className="text-xs font-bold text-[#526D82] hover:text-[#27374D] flex items-center gap-1"
-            >
-              <span>Jelajahi Semua Modul</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          ) : (
-            <button
-              type="button"
-              onClick={openLoginModal}
-              className="text-xs font-bold text-[#526D82] hover:text-[#27374D] flex items-center gap-1 cursor-pointer"
-            >
-              <span>Jelajahi Semua Modul</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          )}
+          <Link
+            to="/login"
+            className="text-xs font-bold text-[#526D82] hover:text-[#27374D] flex items-center gap-1 cursor-pointer"
+          >
+            <span>Jelajahi Semua Modul</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3">
@@ -336,28 +283,91 @@ export default function Beranda() {
               </>
             );
 
-            if (isAuthenticated) {
-              return (
-                <Link
-                  key={m.id}
-                  to={`/belajar?tab=simulator&scenario=${m.scenarioId}`}
-                  className="group flex flex-col justify-between rounded-3xl border border-[#9DB2BF]/50 bg-white p-5 hover:border-[#526D82] hover:shadow-lg transition-all cursor-pointer"
-                >
-                  {cardContent}
-                </Link>
-              );
-            }
-
             return (
-              <div
+              <Link
                 key={m.id}
-                onClick={openLoginModal}
+                to="/login"
                 className="group flex flex-col justify-between rounded-3xl border border-[#9DB2BF]/50 bg-white p-5 hover:border-[#526D82] hover:shadow-lg transition-all cursor-pointer"
               >
                 {cardContent}
-              </div>
+              </Link>
             );
           })}
+        </div>
+      </section>
+
+      {/* ================================================================= */}
+      {/* TESTIMONI / CERITA REKAN                                          */}
+      {/* ================================================================= */}
+      <section id="testimoni" className="space-y-6 scroll-mt-24">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#526D82]">Suara Komunitas</span>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#27374D]">Cerita Rekan Muda Indonesia</h2>
+          <p className="text-sm text-[#526D82]">
+            Pengalaman nyata dari mereka yang berhasil menghindar dari tipuan digital setelah berlatih.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-3">
+          <div className="rounded-3xl border border-[#9DB2BF]/50 bg-white p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-amber-400" />
+              ))}
+            </div>
+            <p className="text-xs sm:text-sm text-[#27374D] italic leading-relaxed">
+              &ldquo;Hampir saja saya klik file surat tilang .apk di WhatsApp. Untung ingat simulasi JagaRuang bahwa instansi resmi tidak pernah kirim file instalasi lewat chat!&rdquo;
+            </p>
+            <div className="pt-2 border-t border-[#9DB2BF]/30 flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-[#526D82] text-white flex items-center justify-center font-bold text-xs">
+                NW
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#27374D]">Nabila Wulandari</p>
+                <p className="text-[10px] text-[#526D82]">Mahasiswi · Bandung</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-[#9DB2BF]/50 bg-white p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-amber-400" />
+              ))}
+            </div>
+            <p className="text-xs sm:text-sm text-[#27374D] italic leading-relaxed">
+              &ldquo;Fitur Sandi Keluarga sangat berguna! Kami sekeluarga sepakat punya kata rahasia saat ada telepon mencurigakan yang minta transfer uang mengatasnamakan adik.&rdquo;
+            </p>
+            <div className="pt-2 border-t border-[#9DB2BF]/30 flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-[#526D82] text-white flex items-center justify-center font-bold text-xs">
+                DP
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#27374D]">Dimas Pratama</p>
+                <p className="text-[10px] text-[#526D82]">Fresh Graduate · Surabaya</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-[#9DB2BF]/50 bg-white p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-amber-400" />
+              ))}
+            </div>
+            <p className="text-xs sm:text-sm text-[#27374D] italic leading-relaxed">
+              &ldquo;Yang saya suka, link tidak pernah dibuka dan data kita disamarkan. Transparansi seperti ini yang bikin percaya dan betah belajar bareng.&rdquo;
+            </p>
+            <div className="pt-2 border-t border-[#9DB2BF]/30 flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-[#526D82] text-white flex items-center justify-center font-bold text-xs">
+                KA
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#27374D]">Kevin Ananda</p>
+                <p className="text-[10px] text-[#526D82]">Pegiat Komunitas · Jakarta</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -417,24 +427,13 @@ export default function Beranda() {
           Mulai eksplorasi aman tanpa instalasi aplikasi luar dan tanpa registrasi server.
         </p>
         <div className="pt-2">
-          {isAuthenticated ? (
-            <Link
-              to="/dashboard"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-[#27374D] hover:bg-[#DDE6ED] active:scale-98 transition-all shadow-md"
-            >
-              <span>Masuk ke Dashboard</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          ) : (
-            <button
-              type="button"
-              onClick={openLoginModal}
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-[#27374D] hover:bg-[#DDE6ED] active:scale-98 transition-all shadow-md cursor-pointer"
-            >
-              <span>Masuk &amp; Mulai Simulasi</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          )}
+          <Link
+            to="/login"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-[#27374D] hover:bg-[#DDE6ED] active:scale-98 transition-all shadow-md cursor-pointer"
+          >
+            <span>Masuk &amp; Mulai Simulasi</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 

@@ -39,7 +39,7 @@ export default function UserProfileDropdown() {
   const handleLogout = () => {
     setIsOpen(false);
     logout();
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   const initial = user?.name ? user.name.slice(0, 1).toUpperCase() : "T";

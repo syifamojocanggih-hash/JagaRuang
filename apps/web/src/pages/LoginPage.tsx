@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, Lock, Eye, EyeOff, ShieldCheck, ArrowRight, AlertCircle, ArrowLeft } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import Dashboard from "./Dashboard";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login, loginWithGoogle } = useAuth();
+  const { login, loginWithGoogle, isAuthenticated } = useAuth();
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,12 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +39,7 @@ export default function LoginPage() {
       const res = login(identifier, password);
       setIsLoading(false);
       if (res.success) {
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setError(res.error || "Gagal masuk. Silakan periksa kembali data Anda.");
       }
@@ -44,7 +51,7 @@ export default function LoginPage() {
     setTimeout(() => {
       loginWithGoogle();
       setIsLoading(false);
-      navigate("/");
+      navigate("/dashboard");
     }, 400);
   };
 
@@ -52,7 +59,7 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-8 px-4 sm:px-6 page-transition-enter">
       {/* Container Utama Desain Split Desktop / Kartu Mobile (Sesuai Gambar 1 & Gambar 2/3) */}
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-[#9DB2BF]/40 overflow-hidden grid grid-cols-1 md:grid-cols-2 relative auth-card-enter">
-        
+
         {/* Tombol Pintasan Kembali ke Beranda */}
         <Link
           to="/"
@@ -68,7 +75,7 @@ export default function LoginPage() {
           <div className="absolute -top-14 -left-14 w-64 h-64 rounded-full bg-linear-to-tr from-[#00A8FF]/30 to-[#0052D4]/50 blur-xs shadow-2xl pointer-events-none transform -rotate-12 animate-bubble-float" />
           <div className="absolute top-1/3 -right-16 w-56 h-56 rounded-full bg-linear-to-bl from-[#3A86FF]/40 to-[#1E3A8A]/80 blur-xs shadow-2xl pointer-events-none animate-bubble-float [animation-delay:2s]" />
           <div className="absolute -bottom-16 left-12 w-60 h-60 rounded-full bg-linear-to-tr from-[#1E3A8A]/90 to-[#2563EB]/40 blur-xs shadow-2xl pointer-events-none animate-bubble-float [animation-delay:4s]" />
-          
+
           {/* Efek Garis Cahaya */}
           <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black/20 pointer-events-none" />
 
@@ -93,7 +100,7 @@ export default function LoginPage() {
 
         {/* ================= SISI KANAN: FORM LOGIN (Sesuai Gambar 1 & Gambar 2/3) ================= */}
         <div className="flex flex-col justify-center p-6 sm:p-10 md:p-12 bg-white relative">
-          
+
           {/* Header Form */}
           <div className="space-y-1.5 mb-6 text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#163172]">
@@ -196,13 +203,13 @@ export default function LoginPage() {
             {/* Garis Pemisah (Divider "Or") */}
             <div className="relative flex items-center justify-center py-2">
               <div className="grow border-t border-[#DDE6ED]" />
-              <span className="shrink-0 px-3 text-xs text-[#9DB2BF] uppercase tracking-wider font-semibold">
+              <span className="shrink-0 px-S3 text-xs text-[#9DB2BF] uppercase tracking-wider font-semibold">
                 Or
               </span>
               <div className="grow border-t border-[#DDE6ED]" />
             </div>
 
-            {/* Tombol Google Lonjong (Sesuai Permintaan Gambar 3) */}
+            {/* Tombol Google Lonjong */}
             <button
               type="button"
               onClick={handleGoogleLogin}
