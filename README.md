@@ -13,20 +13,22 @@
 
 ## Daftar Isi
 1. [Latar Belakang & Masalah](#1-latar-belakang--masalah)
-2. [Fitur Utama](#2-fitur-utama)
-   - [Landing Page Interaktif (Three.js 3D)](#21-landing-page-interaktif-threejs-3d)
-   - [Pilar 1: Cek Pesan, Link, File & Izin](#22-pilar-1-cek-pesan-link-file--izin)
-   - [Pilar 2: Hub Belajar (4 Pilar Edukasi Terpadu)](#23-pilar-2-hub-belajar-4-pilar-edukasi-terpadu)
-   - [Pilar 3: Lindungi Diri & Sekitar (Pusat Darurat & Advokasi)](#24-pilar-3-lindungi-diri--sekitar-pusat-darurat--advokasi)
-   - [Fitur Spesial: Sandi Verifikasi Keluarga](#25-fitur-spesial-sandi-verifikasi-keluarga)
-   - [Transparansi & Keterbatasan Sistem](#26-transparansi--keterbatasan-sistem)
-3. [Arsitektur Keamanan & Privasi (100% Client-Side)](#3-arsitektur-keamanan--privasi-100-client-side)
-4. [Petunjuk Penggunaan (Alur Evaluasi / Walk-Through)](#4-petunjuk-penggunaan-alur-evaluasi--walk-through)
-5. [Cara Menjalankan di Komputer Lokal](#5-cara-menjalankan-di-komputer-lokal)
-6. [Struktur Monorepo & Pembagian Kerja](#6-struktur-monorepo--pembagian-kerja)
-7. [Teknologi yang Digunakan](#7-teknologi-yang-digunakan)
-8. [Tim Pengembang](#8-tim-pengembang)
-9. [Dokumentasi Teknis Terkait](#9-dokumentasi-teknis-terkait)
+2. [Kerangka Guardians (Recognize, Learn, Act)](#2-kerangka-guardians-recognize-learn-act)
+3. [Fitur Utama](#3-fitur-utama)
+   - [Landing Page Interaktif (Three.js 3D)](#31-landing-page-interaktif-threejs-3d)
+   - [Akun On-Device & Akses Demo Penguji](#32-akun-on-device--akses-demo-penguji)
+   - [Pilar 1: Cek Pesan, Link, File & Izin (Recognize)](#33-pilar-1-cek-pesan-link-file--izin-recognize)
+   - [Pilar 2: Hub Belajar & 8 Simulator Kasus (Learn)](#34-pilar-2-hub-belajar--8-simulator-kasus-learn)
+   - [Pilar 3: Lindungi Diri & Sekitar (Act)](#35-pilar-3-lindungi-diri--sekitar-act)
+   - [Fitur Spesial: Sandi Verifikasi Keluarga](#36-fitur-spesial-sandi-verifikasi-keluarga)
+   - [Transparansi & Keterbatasan Sistem](#37-transparansi--keterbatasan-sistem)
+4. [Arsitektur Keamanan & Privasi (100% Client-Side)](#4-arsitektur-keamanan--privasi-100-client-side)
+5. [Petunjuk Penggunaan (Alur Evaluasi / Walk-Through)](#5-petunjuk-penggunaan-alur-evaluasi--walk-through)
+6. [Cara Menjalankan di Komputer Lokal](#6-cara-menjalankan-di-komputer-lokal)
+7. [Struktur Monorepo & Pembagian Kerja](#7-struktur-monorepo--pembagian-kerja)
+8. [Teknologi yang Digunakan](#8-teknologi-yang-digunakan)
+9. [Tim Pengembang](#9-tim-pengembang)
+10. [Dokumentasi Teknis Terkait](#10-dokumentasi-teknis-terkait)
 
 ---
 
@@ -40,28 +42,49 @@ Masyarakat kerap berada dalam kondisi panik dan tertekan saat menghadapi insiden
 
 ---
 
-## 2. Fitur Utama
+## 2. Kerangka Guardians (Recognize, Learn, Act)
+
+Sesuai tema *Guardians of the Digital Space*, pengalaman pengguna di JagaRuang disusun atas 3 tahapan ketahanan mental dan teknis:
+
+| Tahapan Guardians | Fokus Pengalaman | Implementasi Fitur JagaRuang |
+|---|---|---|
+| **1. Recognize** *(Kenali)* | Kenali sinyal interaksi digital yang perlu diperiksa sebelum dipercaya. | **Pilar 1: Cek Pesan, Link, File & Izin** (`/cek`) dengan 22 aturan heuristik L1–L5, sensor manipulasi psikologis, pendeteksi typosquatting, serta audit izin Android berisiko. |
+| **2. Learn** *(Pelajari)* | Pelajari konteks dan bukti yang tersedia agar keputusan tidak diambil terburu-buru. | **Pilar 2: Hub Belajar** (`/belajar`) dengan 8 skenario simulator percakapan interaktif, lightbox bukti forensik, 12 modul edukasi komprehensif, kuis kilat 2 menit, dan kamus taksonomi kejahatan siber. |
+| **3. Act** *(Bertindak)* | Arahkan pengguna pada tindakan aman dan langkah tindak lanjut yang jelas. | **Pilar 3: Lindungi Sekitarmu** (`/lindungi` & `/sandi`) berupa SOP darurat perbankan 5 kondisi, direktori kanal lapor resmi terverifikasi, generator kartu peringatan visual, dan generator Sandi Verifikasi Keluarga anti-AI Voice Cloning. |
+
+---
+
+## 3. Fitur Utama
 
 ```
                                   JAGARUANG
   ┌──────────────────┬──────────────────┬──────────────────┬──────────────────┐
      LANDING PAGE        PILAR 1: CEK      PILAR 2: BELAJAR    PILAR 3: LINDUNGI
-  (3D Canvas & Stats) (Pesan/Link/File)    (4 Pilar Belajar)   (Pusat Darurat)
+  (3D Canvas & Stats) (Pesan/Link/File)    (8 Kasus & 12 Modul)(Pusat Darurat)
                              │                  │                  │
-                             │                  ├─ Simulator Chat  ├─ Checklist SOP
-                             │                  ├─ 12 Modul Kilat  ├─ Kanal Resmi
-                             │                  ├─ Kuis 2 Menit    ├─ Kartu Waspada
-                             │                  └─ Kamus Jebakan   └─ Sandi Keluarga
-                             ▼                  ▼                  ▼
-                   [ ARSITEKTUR 100% LOKAL: TANPA SERVER & ZERO TRACKING ]
+                             ▼ [ RECOGNIZE ]    ▼ [ LEARN ]        ▼ [ ACT ]
+                    [ ARSITEKTUR 100% LOKAL: TANPA SERVER & ZERO TRACKING ]
 ```
 
-### 2.1. Landing Page Interaktif (Three.js 3D)
+### 3.1. Landing Page Interaktif (Three.js 3D)
 - **3D Interactive Smartphone Canvas**: Model smartphone 3D interaktif yang dirender dengan Three.js (`@react-three/fiber` dan `@react-three/drei`), menyajikan simulasi pesan penipuan secara visual dan interaktif di layar beranda.
 - **Statistik Dampak Nasional**: Menampilkan rekapitulasi data resmi penipuan digital (IASC & Satgas PASTI OJK) untuk membangun kesadaran literasi pengguna.
-- **Gerbang Akses Cepat**: Pemisahan rute publik (`/`) dan Dashboard terproteksi lokal (`/dashboard`).
+- **Navigasi Responsif**: Penjelajahan seksi instan (Home, Tiga Pilar, Modul Simulasi, Cerita Rekan Komunitas, dan FAQ).
 
-### 2.2. Pilar 1: Cek Pesan, Link, File & Izin
+### 3.2. Akun On-Device & Akses Demo Penguji
+JagaRuang menerapkan otentikasi privat murni di sisi peramban (`localStorage`) tanpa server backend eksternal, sehingga data dan sesi pengguna tidak pernah terlacak.
+
+Tersedia **Akun Demo Bawaan** untuk memudahkan pengujian evaluator/juri:
+
+| Informasi Akun | Nilai Kredensial |
+|---|---|
+| **Username / Email** | `demo` *(atau `demo@jagaruang.id`)* |
+| **Password** | `jagaruang2026` |
+| **Opsi Masuk Cepat** | Klik tombol **"Login with Google"** di halaman login untuk langsung masuk sesi instan tanpa mengetik sandi. |
+
+> *Catatan: Pengguna juga dapat membuat akun baru melalui halaman Registrasi (`/register`) atau masuk menggunakan nama alias apa saja.*
+
+### 3.3. Pilar 1: Cek Pesan, Link, File & Izin (Recognize)
 - **22 Aturan Heuristik L1–L5**: Mesin inferensi lokal cerdas yang menganalisis indikator kejanggalan pada:
   - **Pesan Teks & Chat**: Mendeteksi urgensi buatan, manipulasi emosi (ketakutan/hadiah), ancaman rekening, dan instruksi transfer sepihak.
   - **Tautan / URL Phishing**: Mendeteksi *display name spoofing*, teknik karakter `@` pengalih domain (`bca.co.id@phisher.com`), domain typosquatting, dan serangan karakter Unicode Cyrillic (*Homograph Attack*).
@@ -70,11 +93,18 @@ Masyarakat kerap berada dalam kondisi panik dan tertekan saat menghadapi insiden
 - **Visual Risk Meter & Anotasi Red Flag**: Menampilkan tingkat kewaspadaan objektif, penyorotan teks kalimat janggal menggunakan elemen aman `<mark>`, penjelasan logis *"Kenapa Mencurigakan"*, serta rekomendasi *"Cara Verifikasi Mandiri"*.
 - **Tombol "Coba Contoh"**: Memungkinkan pengujian instan dengan ragam studi kasus nyata hanya dalam satu klik.
 
-### 2.3. Pilar 2: Hub Belajar (4 Pilar Edukasi Terpadu)
+### 3.4. Pilar 2: Hub Belajar & 8 Simulator Kasus (Learn)
 Pusat pembelajaran anti-penipuan komprehensif yang dirancang interaktif tanpa membaca teks membosankan:
-1. **Skenario Simulator Kasus Nyata**:
-   - *Fake Chat Simulator*: Simulasi percakapan chat WhatsApp interaktif dengan alur keputusan bercabang, fitur *Lightbox Inspeksi Forensik Bukti*, evaluasi poin skor, dan debriefing mendalam di akhir kasus.
-   - *Phone Call Simulator*: Simulasi audio panggilan telepon interaktif menghadapi penipu yang menyamar sebagai *customer service* perbankan.
+1. **8 Skenario Simulator Kasus Nyata Interaktif**:
+   - **K1 · Undangan APK Palsu**: Rekayasa sosial file instalasi berbahaya via WhatsApp.
+   - **K2 · Kurir Paket & Foto Resi**: Trik ekstensi ganda `.jpg.apk` berkedok tanda terima pengiriman barang.
+   - **K3 · Loker Admin WFH**: Jebakan tugas berbayar dan pemerasan deposit uang muka.
+   - **K4 · Telepon CS Palsu Bank**: Manipulasi psikologis vishing untuk mencuri kode OTP 6 digit.
+   - **K5 · Investasi Kripto Bodong**: Manipulasi kedekatan emosional skema *Pig Butchering*.
+   - **K6 · Penangguhan Akun Email**: Jebakan kepanikan darurat pemulihan sandi palsu.
+   - **K7 · Giveaway & Hadiah Palsu**: Jebakan pajak undian dan pengalihan transfer.
+   - **K8 · Toko Online Fiktif**: Pancingan harga murah dan rekening perorangan non-rekening bersama.
+   - *Fitur Forensik Bukti*: Dilengkapi **Lightbox Inspeksi Bukti Gambar/Dokumen** untuk memeriksa detail kejanggalan sebelum mengambil keputusan percakapan bercabang.
 2. **12 Modul Edukasi Lengkap (m1 s.d. m12)**:
    - **m1: Apa Itu Rekayasa Sosial?**: Prinsip manipulasi psikologis manusia (Otoritas, Urgensi, Ketakutan, Hadiah).
    - **m2: Anatomi Sebuah Penipuan**: 5 tahapan alur penipuan dan penentuan titik keluar aman (*Safe Exit Point*).
@@ -93,21 +123,21 @@ Pusat pembelajaran anti-penipuan komprehensif yang dirancang interaktif tanpa me
 4. **Kamus Jebakan & Modus Populer**:
    - Ensiklopedia taksonomi penipuan digital (APK Sniffer, Quishing, Fake Job, Romance Scam, SIM Swap, dsb.) lengkap dengan pertolongan pertama 15 menit dan langkah pencegahan.
 
-### 2.4. Pilar 3: Lindungi Diri & Sekitar (Pusat Darurat & Advokasi)
+### 3.5. Pilar 3: Lindungi Diri & Sekitar (Act)
 - **Checklist Panduan Tindakan 5 Kondisi**: Penanganan terstruktur untuk kondisi *Darurat Terpapar*, *Waspada*, *Kritis*, *Pemulihan*, dan *Edukasi*.
 - **Portal Kanal Lapor Resmi Terverifikasi**: Direktori kontak terverifikasi (IASC OJK, Satgas PASTI, Bank Indonesia, Kepolisian SPKT 110, AduanKonten Komdigi, CS WhatsApp).
 - **Generator Kartu Peringatan Bahaya**: Menghasilkan kartu grafis digital siap unduh dan siap sebar untuk mengingatkan grup keluarga atau komunitas.
 
-### 2.5. Fitur Spesial: Sandi Verifikasi Keluarga
+### 3.6. Fitur Spesial: Sandi Verifikasi Keluarga
 - **Penangkal Kloning Suara AI (*AI Voice Cloning*)**: Memandu keluarga membuat kata sandi rahasia verbal yang disepakati bersama secara langsung (tatap muka). Ketika ada panggilan darurat mencurigakan yang meminta uang tebusan, penanya cukup menanyakan kata sandi ini untuk memastikan keaslian penelpon.
 
-### 2.6. Transparansi & Keterbatasan Sistem
+### 3.7. Transparansi & Keterbatasan Sistem
 - Menjelaskan batasan sistem secara jujur: JagaRuang adalah platform edukasi berbasis heuristik offline, bukan perangkat antivirus dan bukan saluran pelaporan aparat penegak hukum.
 - Dilengkapi tombol **"Hapus Semua Data Lokal"** untuk menghapus progres modul, catatan notifikasi, dan preferensi tersimpan di peramban seketika.
 
 ---
 
-## 3. Arsitektur Keamanan & Privasi (100% Client-Side)
+## 4. Arsitektur Keamanan & Privasi (100% Client-Side)
 
 JagaRuang dibangun dengan prinsip **Privacy-First Architecture**:
 
@@ -130,7 +160,7 @@ JagaRuang dibangun dengan prinsip **Privacy-First Architecture**:
 
 ---
 
-## 4. Petunjuk Penggunaan (Alur Evaluasi / Walk-Through)
+## 5. Petunjuk Penggunaan (Alur Evaluasi / Walk-Through)
 
 Bagi juri, penguji, atau pengguna yang ingin mencoba seluruh kapabilitas JagaRuang, ikuti skenario penelusuran berikut:
 
@@ -167,7 +197,7 @@ Bagi juri, penguji, atau pengguna yang ingin mencoba seluruh kapabilitas JagaRua
 
 ---
 
-## 5. Cara Menjalankan di Komputer Lokal
+## 6. Cara Menjalankan di Komputer Lokal
 
 ### Prasyarat Sistem
 - **Node.js**: Versi `20.x` atau yang lebih baru.
@@ -187,12 +217,15 @@ Bagi juri, penguji, atau pengguna yang ingin mencoba seluruh kapabilitas JagaRua
    npm install
    ```
 
-3. **Konfigurasi Lingkungan (Environment Variables):**
-   Salin file contoh konfigurasi pada aplikasi web:
+3. **Konfigurasi Lingkungan (Opsional):**
+   Aplikasi sudah memiliki konfigurasi default yang siap pakai tanpa perlu konfigurasi `.env`. Jika ingin kustomisasi, Anda dapat menyalin file template:
    ```bash
+   # Linux / macOS
    cp apps/web/.env.example apps/web/.env.local
+
+   # Windows (PowerShell)
+   Copy-Item apps/web/.env.example apps/web/.env.local
    ```
-   *(Secara bawaan `VITE_USE_MOCK=false`, aplikasi menggunakan mesin inferensi core lokal).*
 
 4. **Menjalankan Server Pengembangan Lokal:**
    ```bash
@@ -214,7 +247,7 @@ Bagi juri, penguji, atau pengguna yang ingin mencoba seluruh kapabilitas JagaRua
 
 ---
 
-## 6. Struktur Monorepo & Pembagian Kerja
+## 7. Struktur Monorepo & Pembagian Kerja
 
 Proyek ini menggunakan arsitektur **npm workspaces** untuk memisahkan domain logika dan domain tampilan secara bersih:
 
@@ -259,7 +292,7 @@ JagaRuang/
 
 ---
 
-## 7. Teknologi yang Digunakan
+## 8. Teknologi yang Digunakan
 
 | Kategori | Teknologi / Pustaka | Penggunaan |
 |---|---|---|
@@ -273,7 +306,7 @@ JagaRuang/
 
 ---
 
-## 8. Tim Pengembang
+## 9. Tim Pengembang
 
 Proyek **JagaRuang** dikembangkan oleh:
 
@@ -286,7 +319,7 @@ Proyek **JagaRuang** dikembangkan oleh:
 
 ---
 
-## 9. Dokumentasi Teknis Terkait
+## 10. Dokumentasi Teknis Terkait
 
 Untuk pemahaman mendalam mengenai arsitektur sistem, aturan kode, dan riwayat pengembangan, silakan baca dokumentasi teknis pendukung berikut:
 

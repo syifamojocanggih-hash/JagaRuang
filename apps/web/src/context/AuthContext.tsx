@@ -28,6 +28,13 @@ interface AuthContextType {
 const STORAGE_USER_KEY = "jagaruang_user";
 const STORAGE_ACCOUNTS_KEY = "jagaruang_registered_accounts";
 
+const DEFAULT_DEMO_ACCOUNT: StoredAccount = {
+  name: "demo",
+  email: "demo@jagaruang.id",
+  passwordHash: btoa("jagaruang2026"),
+  joinedAt: "2026-11-01T08:00:00.000Z",
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -45,13 +52,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  // Ambil daftar akun terdaftar dari localStorage
+  // Ambil daftar akun terdaftar dari localStorage, selalu sertakan akun demo bawaan
   const getRegisteredAccounts = (): StoredAccount[] => {
     try {
       const raw = localStorage.getItem(STORAGE_ACCOUNTS_KEY);
-      return raw ? JSON.parse(raw) : [];
+      const accounts: StoredAccount[] = raw ? JSON.parse(raw) : [];
+      if (!accounts.some((acc) => acc.email.toLowerCase() === DEFAULT_DEMO_ACCOUNT.email.toLowerCase() || acc.name.toLowerCase() === DEFAULT_DEMO_ACCOUNT.name.toLowerCase())) {
+        accounts.unshift(DEFAULT_DEMO_ACCOUNT);
+      }
+      return accounts;
     } catch {
-      return [];
+      return [DEFAULT_DEMO_ACCOUNT];
     }
   };
 
