@@ -40,6 +40,8 @@ Masyarakat kerap berada dalam kondisi panik dan tertekan saat menghadapi insiden
 
 **JagaRuang** hadir sebagai solusi komprehensif non-intrusif yang menjawab tantangan ini melalui pendekatan tiga pilar: **Cek**, **Latih**, dan **Lindungi**.
 
+Link Website : https://jaga-ruang-ten.vercel.app/
+
 ---
 
 ## 2. Kerangka Guardians (Recognize, Learn, Act)
@@ -84,7 +86,7 @@ Tersedia **Akun Demo Bawaan** untuk memudahkan pengujian evaluator/juri:
 
 > *Catatan: Pengguna juga dapat membuat akun baru melalui halaman Registrasi (`/register`) atau masuk menggunakan nama alias apa saja.*
 
-Pengguna juga bisa langsung tekan tombol login Gooogle yang nanti akan langsung masuk ke Web Dashboard sebagai Akun Demo
+Pengguna juga bisa langsung tekan tombol login Google yang nanti akan langsung masuk ke Web Dashboard sebagai pengguna Akun Demo
 
 ### 3.3. Pilar 1: Cek Pesan, Link, File & Izin (Recognize)
 - **22 Aturan Heuristik L1–L5**: Mesin inferensi lokal cerdas yang menganalisis indikator kejanggalan pada:
